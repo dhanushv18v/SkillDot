@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithEmail, signUpWithEmail, signInWithGoogle } from "@/lib/auth";
+import { signInWithEmail, signUpWithEmail, signInWithGoogle, onAuthChange } from "@/lib/auth";
 
 const DEMO_USER_KEY = "skilldot_demo_mode";
 
@@ -11,6 +11,17 @@ export default function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    // If the user is already logged in (e.g. they closed the app and reopened it)
+    // redirect them straight to the dashboard so they don't see the login form again.
+    const unsub = onAuthChange((user) => {
+      if (user) {
+        router.push("/dashboard");
+      }
+    });
+    return () => unsub();
+  }, [router]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
