@@ -72,8 +72,11 @@ export default function AuthForm() {
 
   if (isCheckingAuth) {
     return (
-      <div className="auth-card glass" style={{ minHeight: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="loading-ring" />
+      <div style={{ minHeight: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", animation: "pulse-dot 2s ease-in-out infinite" }}>
+          <span className="brand-dot" style={{ fontSize: "2rem" }}>●</span>
+          <span className="brand-text" style={{ fontSize: "1.5rem" }}>SkillDot</span>
+        </div>
       </div>
     );
   }
