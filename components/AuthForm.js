@@ -10,6 +10,7 @@ export default function AuthForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [loadPct, setLoadPct] = useState(0);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -23,7 +24,16 @@ export default function AuthForm() {
         setIsCheckingAuth(false);
       }
     });
-    return () => unsub();
+
+    // Rapid fake loading percentage just for the cool visual effect
+    const interval = setInterval(() => {
+      setLoadPct((prev) => (prev < 99 ? prev + Math.floor(Math.random() * 15) + 5 : 99));
+    }, 50);
+
+    return () => {
+      unsub();
+      clearInterval(interval);
+    };
   }, [router]);
 
   const handleChange = (e) => {
@@ -71,11 +81,15 @@ export default function AuthForm() {
   };
 
   if (isCheckingAuth) {
+    const displayPct = Math.min(loadPct, 99);
     return (
-      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "20px", position: "fixed", inset: 0, zIndex: 999 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span className="brand-dot" style={{ fontSize: "1.5rem" }}>●</span>
-          <span className="brand-text" style={{ fontSize: "1.2rem", letterSpacing: "2px", textTransform: "uppercase" }}>Authenticating</span>
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "24px", position: "fixed", inset: 0, zIndex: 9999, background: "rgba(10, 10, 28, 0.98)", backdropFilter: "blur(20px)" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "12px" }}>
+          <span className="brand-dot" style={{ fontSize: "1.8rem" }}>●</span>
+          <span className="brand-text" style={{ fontSize: "1.8rem" }}>SkillDot</span>
+          <span style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--accent-cyan)", width: "40px", textAlign: "right" }}>
+            {displayPct}%
+          </span>
         </div>
         <div className="auth-line-loader">
           <div className="auth-line-fill" />
