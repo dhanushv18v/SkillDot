@@ -83,7 +83,7 @@ export default function AuthForm() {
   if (isCheckingAuth) {
     const displayPct = Math.min(loadPct, 99);
     return (
-      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "24px", position: "fixed", inset: 0, zIndex: 9999, background: "rgba(10, 10, 28, 0.98)", backdropFilter: "blur(20px)" }}>
+      <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "24px", position: "fixed", inset: 0, zIndex: 9999, background: "rgba(10, 10, 28, 0.98)", backdropFilter: "blur(20px)" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "12px" }}>
           <span className="brand-dot" style={{ fontSize: "1.8rem" }}>●</span>
           <span className="brand-text" style={{ fontSize: "1.8rem" }}>SkillDot</span>

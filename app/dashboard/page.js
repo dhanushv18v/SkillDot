@@ -102,9 +102,14 @@ export default function DashboardPage() {
 
   if (authLoading) {
     return (
-      <div className="dashboard-loading">
-        <div className="loading-ring" />
-        <span>Loading your progress...</span>
+      <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "24px", position: "fixed", inset: 0, zIndex: 9999, background: "rgba(10, 10, 28, 0.98)" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "12px" }}>
+          <span className="brand-dot" style={{ fontSize: "1.8rem" }}>●</span>
+          <span className="brand-text" style={{ fontSize: "1.8rem" }}>SkillDot</span>
+        </div>
+        <div className="auth-line-loader">
+          <div className="auth-line-fill" />
+        </div>
       </div>
     );
   }
