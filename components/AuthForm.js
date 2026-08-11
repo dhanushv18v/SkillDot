@@ -9,6 +9,7 @@ export default function AuthForm() {
   const [mode, setMode] = useState("signin"); // "signin" | "signup"
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -18,6 +19,8 @@ export default function AuthForm() {
     const unsub = onAuthChange((user) => {
       if (user) {
         router.push("/dashboard");
+      } else {
+        setIsCheckingAuth(false);
       }
     });
     return () => unsub();
@@ -66,6 +69,14 @@ export default function AuthForm() {
     localStorage.setItem(DEMO_USER_KEY, "true");
     router.push("/dashboard");
   };
+
+  if (isCheckingAuth) {
+    return (
+      <div className="auth-card glass" style={{ minHeight: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="loading-ring" />
+      </div>
+    );
+  }
 
   return (
     <div className="auth-card glass">
